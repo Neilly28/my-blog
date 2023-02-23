@@ -1,12 +1,6 @@
 {
   "blogs": [
     {
-      "id": 1,
-      "title": "How to Code",
-      "body": "Coding is a skill that can be learned through practice and dedication.",
-      "author": "John Doe"
-    },
-    {
       "id": 2,
       "title": "The Benefits of Exercise",
       "body": "Exercise can help improve your physical health and mental well-being.",
@@ -17,6 +11,12 @@
       "title": "The Importance of Reading",
       "body": "Reading can improve your knowledge and vocabulary, and can be a great source of entertainment.",
       "author": "David Lee"
+    },
+    {
+      "title": "dasdasdasdadasd",
+      "body": "dsadsad",
+      "author": "yoshi",
+      "id": 4
     }
   ]
 }
