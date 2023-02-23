@@ -26,10 +26,6 @@ code {
   margin-bottom: 50px;
 }
 
-.navbar h1 {
-  /* color: darkslategray; */
-}
-
 .links {
   display: flex;
   align-items: center;

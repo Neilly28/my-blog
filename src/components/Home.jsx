@@ -1,41 +1,39 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    {
-      id: 1,
-      title: "First post",
-      body: "This is the first post.",
-      author: "John Doe",
-    },
-    {
-      id: 2,
-      title: "Second post",
-      body: "This is the second post.",
-      author: "Jane Smith",
-    },
-    {
-      id: 3,
-      title: "Third post",
-      body: "This is the third post.",
-      author: "Bob Johnson",
-    },
-  ]);
+  const [blogs, setBlogs] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleDelete = (id) => {
-    const newBlogs = blogs.filter((blog) => blog.id !== id);
-    setBlogs(newBlogs);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      fetch("http://localhost:8000/blogs")
+        .then((res) => {
+          if (!res.ok) {
+            throw Error("Sorry, we cannot get the correct data");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setBlogs(data);
+          setIsPending(false);
+          setError(null);
+        })
+        .catch((err) => {
+          setIsPending(false);
+          setError(err.message);
+        });
+    }, 1000);
+  }, []);
 
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
-      <BlogList
-        blogs={blogs.filter((blog) => blog.author === "Bob Johnson")}
-        title="Bob's Blogs"
-      />
+      {error && <h1>{error}</h1>}
+      {isPending && <h1>Loading...</h1>}
+      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
 };
